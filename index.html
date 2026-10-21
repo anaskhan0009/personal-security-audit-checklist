@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Security Audit Checklist — Score Your Cyber Hygiene | Dinal Studios</title>
+<meta name="description" content="Free interactive personal cyber security audit checklist: 2FA, password manager, software updates, backups, phishing habits and more. Get an instant security score and tailored recommendations to fix your weakest points first.">
+<meta name="keywords" content="personal security audit checklist, cyber security checklist, online safety checklist, 2fa checklist, password manager, security score, digital hygiene, stay safe online">
+<style>
+  * { box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+  body { margin: 0; background: #0a0f1a; color: #dbe4f3; }
+  header { background: radial-gradient(1000px 400px at 50% -80px, #14532d 0%, #0a0f1a 60%); padding: 46px 16px 30px; text-align: center; border-bottom: 1px solid #1d2b45; }
+  header h1 { margin: 0 0 8px; font-size: 32px; letter-spacing: .5px; }
+  header h1 span { color: #22c55e; }
+  header p { margin: 0; color: #93a5c4; font-size: 15px; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 22px 14px 46px; }
+  .card { background: #111a2c; border: 1px solid #1f2c47; border-radius: 14px; padding: 22px; margin-bottom: 20px; }
+  .card h2 { margin: 0 0 6px; font-size: 20px; color: #fff; }
+  .card .sub { color: #93a5c4; font-size: 13.5px; margin: 0 0 16px; }
+  .scorewrap { position: sticky; top: 10px; z-index: 5; }
+  .scorebig { font-size: 44px; font-weight: 800; color: #fff; line-height: 1; }
+  .bar { height: 14px; background: #22304f; border-radius: 8px; overflow: hidden; margin: 12px 0 8px; }
+  .bar i { display: block; height: 100%; width: 0%; transition: width .45s, background .45s; }
+  .grade { font-size: 15px; font-weight: 700; }
+  .group { margin-bottom: 20px; }
+  .group h3 { color: #22c55e; font-size: 15.5px; margin: 0 0 10px; text-transform: uppercase; letter-spacing: .6px; }
+  .item { display: flex; gap: 12px; background: #0a0f1a; border: 1px solid #1f2c47; border-radius: 10px; padding: 13px 14px; margin-bottom: 9px; cursor: pointer; align-items: flex-start; }
+  .item:hover { border-color: #2a3a5c; }
+  .item input { width: 20px; height: 20px; accent-color: #22c55e; margin-top: 2px; cursor: pointer; flex-shrink: 0; }
+  .item .t { font-size: 14.5px; color: #fff; font-weight: 600; }
+  .item .d { font-size: 12.5px; color: #93a5c4; margin-top: 2px; line-height: 1.5; }
+  .item .pts { margin-left: auto; flex-shrink: 0; background: #1f2c47; color: #86efac; border-radius: 6px; padding: 2px 8px; font-size: 11.5px; font-weight: 700; }
+  .item.crit .pts { background: #7f1d1d; color: #fecaca; }
+  .item.done { border-color: #14532d; opacity: .78; }
+  .item.done .t { text-decoration: line-through; }
+  .btn { background: #22c55e; color: #06280f; border: none; padding: 11px 20px; border-radius: 9px; cursor: pointer; font-weight: 700; font-size: 14px; }
+  .btn.dark { background: #1f2c47; color: #dbe4f3; }
+  .rec { background: #0a0f1a; border: 1px solid #a16207; border-left: 4px solid #eab308; border-radius: 9px; padding: 12px 14px; margin-bottom: 9px; font-size: 13.5px; }
+  .rec b { color: #fef08a; }
+  .rec.crit { border-color: #7f1d1d; border-left-color: #ef4444; }
+  .rec.crit b { color: #fca5a5; }
+  .allgood { background: #0f2417; border: 1px solid #14532d; border-radius: 10px; padding: 14px 16px; color: #bbf7d0; font-size: 14px; }
+  ul.learn { margin: 10px 0 0; padding-left: 18px; color: #aebbd6; font-size: 13.5px; line-height: 1.65; }
+  footer { text-align: center; color: #5b6c8f; font-size: 12.5px; padding: 0 14px 34px; }
+  footer a { color: #22c55e; text-decoration: none; }
+</style>
+</head>
+<body>
+<header>
+  <h1>✅ Personal Security Audit <span>Checklist</span></h1>
+  <p>Tick what you've honestly done — get a score and fix your weakest points first</p>
+</header>
+<div class="wrap">
+
+  <div class="card scorewrap">
+    <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+      <div class="scorebig"><span id="score">0</span><span style="font-size:20px;color:#93a5c4">/100</span></div>
+      <div style="flex:1;min-width:220px">
+        <div class="grade" id="grade">🔴 Exposed — start with the critical fixes below</div>
+        <div class="bar"><i id="fill"></i></div>
+        <div style="font-size:12.5px;color:#93a5c4" id="progressText">0 of 22 protections in place. Your progress saves automatically on this device.</div>
+      </div>
+    </div>
+    <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn" onclick="window.print()">🖨️ Print my checklist</button>
+      <button class="btn dark" id="resetBtn">Reset all</button>
+    </div>
+  </div>
+
+  <div id="groups"></div>
+
+  <div class="card">
+    <h2>🎯 Your Priority Fixes</h2>
+    <p class="sub">Generated live from your unchecked items — critical gaps first, in the order a security professional would fix them.</p>
+    <div id="recs"></div>
+  </div>
+
+  <div class="card">
+    <h2>Why This Order?</h2>
+    <ul class="learn">
+      <li><b>Account takeover causes most damage.</b> Email + password manager + 2FA come first because your email inbox is the master key that resets every other account.</li>
+      <li><b>Updates close known holes.</b> Most real-world compromises exploit bugs that were patched months earlier — automatic updates quietly remove that whole category.</li>
+      <li><b>Backups defeat ransomware.</b> With a tested offline/cloud backup, a locked or stolen device is an inconvenience, not a catastrophe.</li>
+      <li><b>Habits beat tools.</b> Phishing defeats strong passwords by tricking the human — verification habits are a security control too.</li>
+    </ul>
+  </div>
+</div>
+<footer>Built by <a href="https://github.com/anaskhan0009">Dinal Studios</a> · Personal Security Audit Checklist — small habits, big protection</footer>
+
+<script>
+(function(){
+  "use strict";
+  var KEY = 'psa-checklist-v1';
+  var GROUPS = [
+    { name: '🔑 Accounts & Passwords', items: [
+      { id:'pm', pts:12, crit:true, t:'I use a password manager', d:'Bitwarden, KeePass, 1Password or similar generates and remembers a unique password for every account — so you only memorize one master password.', rec:'Install a free password manager (e.g. Bitwarden) today and move your email, banking and social accounts into it first.' },
+      { id:'unique', pts:10, crit:true, t:'Every important account has a UNIQUE password', d:'When one site leaks, criminals try that same password everywhere (“credential stuffing”). Unique passwords contain the damage to one site.', rec:'Change reused passwords on email, banking and social accounts first — generate fresh 16+ character passwords in your manager.' },
+      { id:'2fa-email', pts:12, crit:true, t:'2FA is ON for my email account', d:'Your email resets everything else. Protect it with an authenticator app or security key — not just SMS.', rec:'Turn on two-factor authentication for your email right now, using an authenticator app, and save the backup codes somewhere safe.' },
+      { id:'2fa-bank', pts:10, crit:true, t:'2FA is ON for banking & money apps', d:'Banking, PayPal, crypto and payment apps should all require a second factor.', rec:'Enable 2FA on every money-related app. Prefer app-based codes or hardware keys over SMS where offered.' },
+      { id:'2fa-social', pts:6, crit:false, t:'2FA is ON for social media accounts', d:'Hijacked social accounts are used to scam your contacts. A second factor blocks most takeovers.', rec:'Enable 2FA on your main social accounts — attackers target them to impersonate you to friends and family.' },
+      { id:'breach', pts:6, crit:false, t:'I have checked my email on a breach-notification service', d:'Services like Have I Been Pwned show if your address appeared in known data breaches.', rec:'Check your email address on a breach lookup service and change the password of any breached account you still use.' },
+      { id:'recovery', pts:5, crit:false, t:'My recovery options are up to date', d:'Recovery email/phone on key accounts point to addresses and numbers you still control.', rec:'Review recovery email and phone settings on your email and main accounts — an old number can lock you out or let someone else in.' }
+    ]},
+    { name: '📱 Devices & Updates', items: [
+      { id:'autoupdate', pts:8, crit:true, t:'Automatic updates are ON (phone, PC, browser)', d:'Most attacks exploit already-patched bugs. Automatic updates close holes before criminals reach you.', rec:'Switch on automatic updates for your operating system, browser and apps today — then restart to apply pending ones.' },
+      { id:'lock', pts:5, crit:false, t:'My phone and PC lock automatically with PIN/biometric/password', d:'A short auto-lock timeout protects a lost or borrowed device.', rec:'Set auto-lock to 1 minute or less and require a strong PIN/password or biometrics on every device.' },
+      { id:'encrypt', pts:5, crit:false, t:'Device storage encryption is enabled', d:'Full-disk encryption (BitLocker, FileVault, Android/iOS default) keeps data unreadable if the device is stolen.', rec:'Check disk encryption is on: BitLocker (Windows), FileVault (Mac), or your phone’s security settings.' },
+      { id:'antivirus', pts:4, crit:false, t:'Built-in malware protection is active and scanning', d:'Windows Security / your platform’s built-in protection is on, with real-time scanning enabled.', rec:'Verify your built-in antivirus is enabled and run a full scan this week.' },
+      { id:'apps', pts:4, crit:false, t:'I only install apps from official stores and review permissions', d:'Sideloaded apps and greedy permissions (flashlight apps wanting contacts) are common spyware routes.', rec:'Audit installed apps: delete what you don’t use and revoke permissions apps don’t genuinely need.' },
+      { id:'findmy', pts:3, crit:false, t:'Find-my-device / remote wipe is enabled', d:'Lets you locate, lock or erase a lost phone before its data is abused.', rec:'Enable Find My Device (Android) or Find My (Apple) and test that you can sign in to it.' }
+    ]},
+    { name: '💾 Backups', items: [
+      { id:'backup', pts:9, crit:true, t:'I have a working backup of important files/photos', d:'3-2-1 rule: 3 copies, 2 different media, 1 off-site or cloud. Ransomware and theft can’t destroy what’s backed up.', rec:'Set up a backup today — cloud sync for photos plus an external drive or second cloud copy for documents.' },
+      { id:'backuptest', pts:4, crit:false, t:'I have TESTED restoring from my backup', d:'An untested backup is a hope, not a backup. Restore one file to prove it works.', rec:'Restore one file from your backup now to prove the whole chain works.' }
+    ]},
+    { name: '🎣 Phishing & Habits', items: [
+      { id:'hover', pts:6, crit:false, t:'I check the real destination before clicking links in messages', d:'Hover on desktop, long-press on mobile. The domain at the END is who you’re really visiting.', rec:'Build the preview habit: check the true domain before opening links from messages, especially “urgent” ones.' },
+      { id:'urgency', pts:5, crit:false, t:'I slow down when a message demands urgent action', d:'“Account suspended in 2 hours!” is pressure engineering. Real institutions let you verify through their official app.', rec:'Adopt the rule: urgency = verify through the official app or typed address, never through the message’s link.' },
+      { id:'attachments', pts:5, crit:false, t:'I don’t open unexpected attachments or enable macros', d:'Invoices, “shipping labels” and macro documents are classic malware delivery.', rec:'Treat unexpected attachments as hostile by default — confirm with the sender through a different channel first.' },
+      { id:'calls', pts:4, crit:false, t:'I never share one-time codes with anyone who contacts me', d:'No real bank or support agent asks for your OTP. Anyone who does is stealing your account in real time.', rec:'Memorize this: a one-time code is for YOU to type into the official site/app — never to read out to a caller or chat.' },
+      { id:'wifi', pts:4, crit:false, t:'I avoid banking on public Wi-Fi (or use a VPN/mobile data)', d:'Open networks can be spoofed. Mobile data or a reputable VPN is safer for sensitive tasks.', rec:'For banking and email on the go, prefer mobile data or a trusted VPN over café Wi-Fi.' }
+    ]},
+    { name: '🌐 Privacy Extras', items: [
+      { id:'browser', pts:3, crit:false, t:'My browser blocks third-party trackers / I use privacy settings', d:'Reduces cross-site profiling and some malicious ads (malvertising).', rec:'Turn on your browser’s enhanced tracking protection and remove extensions you don’t recognize.' },
+      { id:'socialprivacy', pts:3, crit:false, t:'My social profiles aren’t fully public', d:'Public birthdays, locations and family details feed password guesses and scams.', rec:'Review social privacy settings: friends-only posts, hidden friend list, no public phone/email.' },
+      { id:'freeze', pts:2, crit:false, t:'I’ve separated my main email from shopping/newsletter signups', d:'A secondary address for signups keeps your master inbox quieter and less exposed.', rec:'Create a separate email for shopping and signups so your primary inbox stays protected and focused.' }
+    ]}
+  ];
+
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ state = {}; }
+  var groupsEl = document.getElementById('groups');
+  var allItems = [];
+
+  GROUPS.forEach(function(g){
+    var wrap = document.createElement('div');
+    wrap.className = 'group card';
+    var h = document.createElement('h3'); h.textContent = g.name; wrap.appendChild(h);
+    g.items.forEach(function(it){
+      it.group = g.name; allItems.push(it);
+      var label = document.createElement('label');
+      label.className = 'item' + (it.crit ? ' crit' : '');
+      label.id = 'item-' + it.id;
+      label.innerHTML = '<input type="checkbox" data-id="' + it.id + '"><span><span class="t">' + it.t + '</span><div class="d">' + it.d + '</div></span><span class="pts">' + (it.crit ? '★ ' : '') + it.pts + ' pts</span>';
+      wrap.appendChild(label);
+    });
+    groupsEl.appendChild(wrap);
+  });
+
+  var total = allItems.reduce(function(s,i){ return s + i.pts; }, 0);
+  function render(){
+    var earned = 0, doneCount = 0;
+    allItems.forEach(function(it){
+      var on = !!state[it.id];
+      var cb = document.querySelector('input[data-id="' + it.id + '"]');
+      cb.checked = on;
+      document.getElementById('item-' + it.id).classList.toggle('done', on);
+      if (on){ earned += it.pts; doneCount++; }
+    });
+    var pct = Math.round(earned / total * 100);
+    document.getElementById('score').textContent = pct;
+    var fill = document.getElementById('fill');
+    fill.style.width = pct + '%';
+    fill.style.background = pct >= 80 ? '#22c55e' : pct >= 55 ? '#84cc16' : pct >= 30 ? '#eab308' : '#ef4444';
+    var grade = document.getElementById('grade');
+    if (pct >= 90) grade.textContent = '🏆 Excellent — hardened. Keep habits sharp and re-audit quarterly.';
+    else if (pct >= 70) grade.textContent = '🟢 Strong — a few gaps left; close them this week.';
+    else if (pct >= 45) grade.textContent = '🟡 Improving — critical basics still missing below.';
+    else if (pct >= 20) grade.textContent = '🟠 At risk — work through the critical fixes first.';
+    else grade.textContent = '🔴 Exposed — start with the critical fixes below.';
+    document.getElementById('progressText').textContent = doneCount + ' of ' + allItems.length + ' protections in place (' + earned + ' of ' + total + ' points). Progress saves automatically on this device.';
+    // Recommendations
+    var missing = allItems.filter(function(i){ return !state[i.id]; });
+    missing.sort(function(a,b){ return (b.crit - a.crit) || (b.pts - a.pts); });
+    var recs = document.getElementById('recs');
+    if (!missing.length){
+      recs.innerHTML = '<div class="allgood">🎉 Every item is ticked — genuinely well done. Re-run this audit every few months, and after any big change (new phone, new job, a breach headline). Stay suspicious of “urgent” messages forever.</div>';
+    } else {
+      recs.innerHTML = missing.slice(0, 6).map(function(i){
+        return '<div class="rec' + (i.crit ? ' crit' : '') + '"><b>' + (i.crit ? '★ CRITICAL — ' : '') + i.t + ':</b> ' + i.rec + '</div>';
+      }).join('') + (missing.length > 6 ? '<p class="sub" style="margin-top:8px">…plus ' + (missing.length - 6) + ' more improvements in the checklist above.</p>' : '');
+    }
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
+  }
+
+  groupsEl.addEventListener('change', function(e){
+    if (e.target && e.target.dataset && e.target.dataset.id){
+      state[e.target.dataset.id] = e.target.checked;
+      render();
+    }
+  });
+  document.getElementById('resetBtn').addEventListener('click', function(){ state = {}; render(); });
+  render();
+})();
+</script>
+</body>
+</html>
